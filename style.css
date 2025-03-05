@@ -1,0 +1,133 @@
+/* Import Stylish Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+/* Main Header with Background Image */
+header {
+    position: relative;
+    background: url('background.jpg') no-repeat center center/cover;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Stylish & Bold Main Header Text */
+.header-content h1 {
+    font-size: 80px;
+    font-weight: bold;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-family: 'Poppins', sans-serif;
+    color: #ffffff;
+    text-shadow: 4px 4px 10px rgba(255, 255, 255, 0.6), 
+                 2px 2px 15px rgba(0, 0, 255, 0.4);
+}
+
+/* Secondary Header for Welcome Home & Thank You */
+.secondary-header {
+    background: #002244; /* Dark blue background */
+    color: #ffffff;
+    padding: 20px;
+    font-size: 22px;
+}
+
+.secondary-header h2 {
+    font-size: 35px;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 2px;
+}
+
+.secondary-header p {
+    font-size: 18px;
+    margin-top: 5px;
+    font-style: italic;
+}
+
+/* Header Buttons */
+.header-buttons {
+    margin-top: 20px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 24px;
+    font-size: 18px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: 0.3s;
+}
+
+/* Log In Button (Navy Blue - U.S. Navy) */
+.login-btn {
+    background-color: #1E3A5F;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+}
+
+.login-btn:hover {
+    background-color: #14304D;
+    border-color: #FFD700; /* U.S. Army Gold */
+}
+
+/* Join Our Community Button (Army Green - U.S. Army) */
+.register-btn {
+    background-color: #4B5320;
+    color: #FFFFFF;
+    border: 2px solid #FFFFFF;
+    margin-left: 15px;
+}
+
+.register-btn:hover {
+    background-color: #3D4218;
+    border-color: #FFD700; /* U.S. Army Gold */
+}
+
+/* Navigation Menu */
+nav ul {
+    list-style: none;
+    padding: 0;
+    background: #050000;
+}
+
+nav ul li {
+    display: inline;
+    margin: 0 15px;
+}
+
+nav ul li a {
+    color: #02aa37;
+    text-decoration: none;
+    font-size: 18px;
+}
+
+/* Sections */
+section {
+    padding: 20px;
+    margin: 20px;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Footer */
+footer {
+    background: #333;
+    color: rgb(1, 120, 25);
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
