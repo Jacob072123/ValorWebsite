@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Valor - Mental Wellness for Veterans</title>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            body{
+                font-family: Arial, sans-serif;
+                background: url(background.jpg) no-repeat center center fixed;
+                background-size: cover;
+                color: #4CAF50;
+                text-align: center;
+                padding: 0;
+                margin: 0;
+            }
+            .container{
+                background-color: rgba(0, 0, 0, 0.6);
+                padding: 40px;
+                margin: 60px auto;
+                width: 90%;
+                max-width: 700px;
+                border-radius: 12px;
+            }
+            select{
+                width: 60%;
+                padding:12px;
+                border-radius: 8px;
+                border: none;
+                font-size: 16px;
+                margin-top: 20px;
+            }
+            button {
+                margin-top: 20px;
+                padding: 12px 30px;
+                font-size: 18px;
+                border: none;
+                border-radius: 8px;
+                background-color: #4CAF50;
+                color: white;
+                cursor: pointer;
+            }
+            button:hover {
+                background-color:#256e45;
+            }
+            #successMsg {
+                color: #4CAF50;
+                margin-top: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class = "container">
+            <h1>Log Mood</h1>
+            <p id = "greating"> </p>
+
+            <form id="moodForm">
+                <label for = "mood">How are you feeling today?</label><br>
+                <select id="mood" required>
+                    <option value="" >-- Choose one --</option>
+                    <option value="Happy">Happy</option>
+                    <option value="Sad">Sad</option>
+                    <option value="Angry">Angry</option>
+                    <option value="Anxious">Anxious</option>
+                    <option value="Scared">Scared</option>
+                    <option value="Lonley">Lonley</option>
+                    <option value="Calm">Calm</option>
+                    <option value="Tired">Tired</option>
+                    <option value="Overwhelmed">Overwhelmed</option>
+                    <option value="Hopeful">Hopeful</option>
+                </select><br>
+                <button type="submit">Log Mood</button>
+            </form>
+            <p id="successMsg"></p>
+        </div>
+        <script>
+            const username = localStorage.getItem("username");
+            if (username) {
+              document.getElementById("greeting").textContent = `Hello, ${username}`;
+            }
+        
+            document.getElementById("moodForm").addEventListener("submit", async function (e) {
+              e.preventDefault();
+        
+              const mood = document.getElementById("mood").value;
+              const user_id = localStorage.getItem("user_id");
+        
+              if (!user_id) {
+                alert("You must be logged in.");
+                return;
+              }
+        
+              try {
+                const response = await fetch("/write-mood", {
+                  method: "POST",
+                  headers: { "Content-Type": "application/json" },
+                  body: JSON.stringify({ user_id, mood })
+                });
+        
+                const data = await response.json();
+        
+                if (response.ok) {
+                  document.getElementById("successMsg").textContent = "Your mood has been logged.";
+                  document.getElementById("mood").value = "";
+                } else {
+                  document.getElementById("successMsg").textContent = data.msg || "Error logging mood.";
+                }
+              } catch (err) {
+                document.getElementById("successMsg").textContent = "Could not connect to the server.";
+              }
+            });
+          </script>
+        </body>

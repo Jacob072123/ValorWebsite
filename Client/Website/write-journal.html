@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Valor - Write Journal Entry | Valor </title>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background: url(background.jpg) no-repeat center center fixed;
+                background-size: cover;
+                color: #4CAF50;
+                text-align: center;
+                padding: 0;
+                margin: 0;
+            }
+            .container {
+                background-color: rgba(0, 0, 0, 0.6);
+                padding: 40px;
+                margin: 60px auto;
+                width: 90%;
+                max-width: 700px;
+                border-radius: 12px;
+            }
+            textarea {
+                width: 100%;
+                height: 200px;
+                border-radius: 8px;
+                border: none;
+                padding: 15px;
+                font-size: 16px;
+            }
+            button {
+                margin-top: 20px;
+                padding: 12px 30px;
+                font-size: 18px;
+                border: none;
+                border-radius: 8px;
+                background-color: #4CAF50;
+                color: white;
+                cursor: pointer;
+            }
+            button:hover {
+                background-color:#256e45;
+            }
+
+            #successMsg {
+                color: #4CAF50;
+                margin-top: 20px;
+            }
+     </style>
+</head>
+<body>
+    <div class = "container">
+        <h1>Journal Entry</h1>
+        <p id = "greating"> </p>
+
+        <form id="journalForm">
+            <textarea id="journalEntry" placeholder="What's on your mind today?" required></textarea><br>
+            <button type="submit">Save Entry</button>
+        </form>
+        <p id="successMsg"></p>
+    </div>
+  
+     
+</body>
+</html>
+            

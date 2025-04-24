@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Entries - Valor</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .record-section {
+      margin: 20px auto;
+      max-width: 700px;
+      background: #ffffffdd;
+      border-radius: 8px;
+      padding: 20px;
+      text-align: left;
+    }
+
+    .record-section h2 {
+      color: #333;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 5px;
+    }
+
+    .record-entry {
+      margin: 10px 0;
+      padding: 10px;
+      border-left: 4px solid #4CAF50;
+      background: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1></h1>
+    <p id="greeting">Loading your records...</p>
+  </header>
+
+  <main>
+    <section class="record-section" id="moodSection">
+      <h2>Your Mood History</h2>
+      <div id="moodList">Loading moods...</div>
+    </section>
+
+    <section class="record-section" id="journalSection">
+      <h2>Your Journal Entries</h2>
+      <div id="journalList">Loading entries...</div>
+    </section>
+
+    <button class="btn" onclick="logout()">Logout</button>
+  </main>
+
+  <script>
+    function logout() {
+      localStorage.clear();
+      window.location.href = "/MainPage.html";
+    }
+
+    async function loadRecords() {
+      const username = localStorage.getItem("username");
+      const user_id = localStorage.getItem("user_id");
+
+      if (!user_id || !username) {
+        document.getElementById("greeting").textContent = "";
+        return;
+      }
+
+      document.getElementById("greeting").textContent = `Here are your latest entries, ${username}.`;
+
+      try {
+        const response = await fetch(`/api/records/${user_id}`);
+        const result = await response.json();
+
+        if (!response.ok) {
+          throw new Error(result.msg || "Unable to load records.");
+        }
+
+        const moods = result.moods || [];
+        const journals = result.journals || [];
+
+        const moodList = document.getElementById("moodList");
+        moodList.innerHTML = moods.length ? "" : "<p>No mood entries yet.</p>";
+        moods.forEach(mood => {
+          const div = document.createElement("div");
+          div.className = "record-entry";
+          div.textContent = `${mood.timestamp}: ${mood.mood}`;
+          moodList.appendChild(div);
+        });
+
+        const journalList = document.getElementById("journalList");
+        journalList.innerHTML = journals.length ? "" : "<p>No journal entries yet.</p>";
+        journals.forEach(entry => {
+          const div = document.createElement("div");
+          div.className = "record-entry";
+          div.textContent = `${entry.timestamp}: ${entry.entry_text}`;
+          journalList.appendChild(div);
+        });
+
+      } catch (err) {
+        document.getElementById("moodList").textContent = "Failed to load mood history.";
+        document.getElementById("journalList").textContent = "Failed to load journal entries.";
+        console.error(err);
+      }
+    }
+
+    loadRecords();
+  </script>
+</body>
+</html>

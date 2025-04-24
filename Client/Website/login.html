@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valor - Mental Wellness for Veterans</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="auth-header"></header>
+
+  <main class="auth-form">
+    <form id="loginForm">
+      <label for="email">Email:</label>
+      <input type="email" id="email" required />
+
+      <label for="password">Password:</label>
+      <input type="password" id="password" required />
+
+      <button type="submit">Log In</button>
+    </form>
+
+    <p><a href="/MainPage.html">← Back to Home</a></p>
+  </main>
+
+  <script>
+    async function loginUser(data) {
+      try {
+        const response = await fetch('/api/users/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          alert(result.msg || "Login failed.");
+        } else {
+          localStorage.setItem("username", result.user.username);
+          localStorage.setItem("user_id", result.user._id);
+          alert("Welcome back.");
+          window.location.href = "/welcome.html";
+        }
+      } catch (err) {
+        alert("Could not connect to the server.");
+        console.error(err);
+      }
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const data = {
+        email: document.getElementById("email").value.trim(),
+        password: document.getElementById("password").value
+      };
+
+      await loginUser(data);
+    });
+  </script>
+</body>
+</html>

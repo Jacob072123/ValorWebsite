@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Welcome to Valor </title>
+        <link rel="stylesheet" href="style.css">
+        <style>
+            *{
+                box-sizing: border-box;
+            }
+            body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    .top-background {
+      background: url('background.jpg') no-repeat center center/cover;
+      height: 50vh;
+      width: 100%;
+    }
+
+    .bottom-background {
+      background: url('branch.jpeg') no-repeat center center/cover;
+      height: 50vh;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: start;
+      padding-top: 30px;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 30px;
+    }
+
+    h1 {
+      font-size: 48px;
+      margin: 0;
+    }
+
+    .content {
+      margin-top: 40px;
+    }
+
+    .btn {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 15px 32px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 18px;
+      margin: 10px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="top-background">
+    <header>
+      <h1>Welcome Home, Hero!!</h1>
+      <p id="welcome-text">Stand Strong. Speak Freely. Find Peace.</p>
+    </header>
+    <main>
+      <button class="btn" onclick="location.href='/log-mood.html'">Log Mood</button>
+      <button class="btn" onclick="location.href='/write-journal.html'">Write Journal</button>
+      <button class="btn" onclick="location.href='/view-records.html'">View Journal</button>
+      <button class="btn" onclick="logout()">Logout</button>
+    </main>
+  
+    <script>
+      function logout() {
+        localStorage.clear();
+        window.location.href = "/MainPage.html";
+      }
+  
+      const username = localStorage.getItem("username");
+      if (username) {
+        document.getElementById("welcome-text").textContent = `Welcome, ${username}`;
+      }
+    </script>
+  </body>
+  </html>
