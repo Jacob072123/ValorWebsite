@@ -5,26 +5,39 @@ const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 2000;
 
-// CORS Middleware
+// Middleware Setup
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Serve static files (HTML, CSS, JS, Images)
+// Serve static frontend files
 app.use(express.static(path.join(__dirname, "../Client/Website")));
 
-// Logger middleware
+// Logger for all requests
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', '*');
   console.log(`${req.method} request for '${req.url}'`);
   next();
 });
 
-// Register routes
+// HTML Page routes
 const router = require("./router");
 router(app);
 
-require("./services")(app);  // MongoDB services
+// MongoDB services
+require("./services")(app);
+
+// API Routes
+const moodRoutes = require("./routes/moodRoutes");
+const journalRoutes = require("./routes/journalRoutes");
+const userRoutes = require("./routes/userRoutes");
+const recordRoutes = require("./routes/recordRoutes"); 
+
+// Connect API Routes
+app.use("/api/mood", moodRoutes);
+app.use("/api/journals", journalRoutes);
+app.use("/api/users", userRoutes);
+app.use("/api/records", recordRoutes);
 
 // Optional 404 fallback
 app.use((req, res) => {
@@ -32,7 +45,7 @@ app.use((req, res) => {
 });
 
 // Start the server
-const server = app.listen(PORT, () => {
+app.listen(PORT, () => {
   console.log(`Server is connected at http://localhost:${PORT}`);
-  console.log('server started at:', new Date().toLocaleString());
+  console.log('Server started at:', new Date().toLocaleString());
 });

@@ -5,7 +5,32 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Your Entries - Valor</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
+  <link href="https://fonts.googleapis.com/css2?family=Titan+One&display=swap" rel="stylesheet">
+  
+<style>
+    body {
+      background: url("StareOff.jpeg") no-repeat center center fixed;
+      background-size: cover;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      background: transparent;
+    }
+
+    #greeting {
+  font-family: 'Titan One', cursive;
+  color: whitesmoke;
+  font-size: 44px;
+  text-align: center;
+  margin-top: 20px;
+  background-color: gray;
+  background: transparent;
+    }
+
     .record-section {
       margin: 20px auto;
       max-width: 700px;
@@ -26,12 +51,44 @@
       padding: 10px;
       border-left: 4px solid #4CAF50;
       background: #f9f9f9;
+      position: relative;
+    }
+
+    .delete-btn {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: #d9534f;
+      color: white;
+      border: none;
+      padding: 4px 10px;
+      font-size: 12px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .delete-btn:hover {
+      background-color: #c9302c;
+    }
+
+    .btn {
+      margin: 20px 10px;
+      padding: 12px 24px;
+      font-size: 16px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: #388e3c;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1></h1>
     <p id="greeting">Loading your records...</p>
   </header>
 
@@ -46,6 +103,7 @@
       <div id="journalList">Loading entries...</div>
     </section>
 
+    <button class="btn" onclick="goBack()">Back Home</button>
     <button class="btn" onclick="logout()">Logout</button>
   </main>
 
@@ -53,6 +111,10 @@
     function logout() {
       localStorage.clear();
       window.location.href = "/MainPage.html";
+    }
+
+    function goBack() {
+      window.location.href = "/welcome.html";
     }
 
     async function loadRecords() {
@@ -74,24 +136,25 @@
           throw new Error(result.msg || "Unable to load records.");
         }
 
-        const moods = result.moods || [];
-        const journals = result.journals || [];
-
         const moodList = document.getElementById("moodList");
-        moodList.innerHTML = moods.length ? "" : "<p>No mood entries yet.</p>";
-        moods.forEach(mood => {
+        moodList.innerHTML = result.moods.length ? "" : "<p>No mood entries yet.</p>";
+        result.moods.forEach(mood => {
           const div = document.createElement("div");
           div.className = "record-entry";
-          div.textContent = `${mood.timestamp}: ${mood.mood}`;
+          div.id = `mood-${mood._id}`;
+          div.innerHTML = `${mood.timestamp}: ${mood.mood}
+            <button class="delete-btn" onclick="deleteMood('${mood._id}')">Delete</button>`;
           moodList.appendChild(div);
         });
 
         const journalList = document.getElementById("journalList");
-        journalList.innerHTML = journals.length ? "" : "<p>No journal entries yet.</p>";
-        journals.forEach(entry => {
+        journalList.innerHTML = result.journals.length ? "" : "<p>No journal entries yet.</p>";
+        result.journals.forEach(entry => {
           const div = document.createElement("div");
           div.className = "record-entry";
-          div.textContent = `${entry.timestamp}: ${entry.entry_text}`;
+          div.id = `journal-${entry._id}`;
+          div.innerHTML = `${entry.timestamp}: ${entry.entry_text}
+            <button class="delete-btn" onclick="deleteJournal('${entry._id}')">Delete</button>`;
           journalList.appendChild(div);
         });
 
@@ -99,6 +162,24 @@
         document.getElementById("moodList").textContent = "Failed to load mood history.";
         document.getElementById("journalList").textContent = "Failed to load journal entries.";
         console.error(err);
+      }
+    }
+
+    async function deleteMood(id) {
+      const response = await fetch(`/api/mood/${id}`, { method: "DELETE" });
+      if (response.ok) {
+        document.getElementById(`mood-${id}`).remove();
+      } else {
+        alert("Failed to delete mood.");
+      }
+    }
+
+    async function deleteJournal(id) {
+      const response = await fetch(`/api/journals/${id}`, { method: "DELETE" });
+      if (response.ok) {
+        document.getElementById(`journal-${id}`).remove();
+      } else {
+        alert("Failed to delete journal entry.");
       }
     }
 

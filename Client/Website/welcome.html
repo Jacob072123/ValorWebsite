@@ -1,95 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Welcome to Valor </title>
-        <link rel="stylesheet" href="style.css">
-        <style>
-            *{
-                box-sizing: border-box;
-            }
-            body {
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome</title>
+
+  <!-- Google Font: Rampart One -->
+  <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
       margin: 0;
       padding: 0;
-      font-family: Arial, sans-serif;
-      color: white;
-      text-align: center;
+      height: 100%;
+      background-color: #444;
+      font-family: 'Rampart One', cursive;
     }
 
-    .top-background {
-      background: url('background.jpg') no-repeat center center/cover;
-      height: 50vh;
-      width: 100%;
-    }
-
-    .bottom-background {
-      background: url('branch.jpeg') no-repeat center center/cover;
-      height: 50vh;
-      width: 100%;
+    .background {
+      height: 100vh;
+      width: 100vw;
+      background-image: url('ThankYou1.jpg');
+      background-repeat: no-repeat;
+      background-position: center center;
+      background-size: 1520px 975px;
       display: flex;
+      flex-direction: column;
       justify-content: center;
-      align-items: start;
-      padding-top: 30px;
+      align-items: center;
     }
 
-    header {
-      background-color: rgba(0, 0, 0, 0.7);
-      padding: 30px;
-    }
-
-    h1 {
+    #welcome-text {
       font-size: 48px;
-      margin: 0;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      padding: 15px 30px;
+      margin-bottom: 40px;
+      border-radius: 10px;
+      background-color: rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(2px);
+      text-shadow:
+        -3px -3px 0 #000,
+         3px -3px 0 #000,
+        -3px  3px 0 #000,
+         3px  3px 0 #000,
+         0px  0px 8px #ffffff;
     }
 
-    .content {
-      margin-top: 40px;
+    .button-row {
+      display: flex;
+      gap: 15px;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 20px 25px;
+      border-radius: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
     }
 
     .btn {
-      background-color: #4CAF50;
+      padding: 14px 22px;
+      font-size: 22px;
+      font-family: 'Rampart One', cursive;
+      font-weight: bold;
       border: none;
-      color: white;
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      font-size: 18px;
-      margin: 10px;
+      border-radius: 12px;
       cursor: pointer;
-      border-radius: 8px;
-      transition: background-color 0.3s;
+      transition: transform 0.2s;
+      min-width: 160px;
+      text-shadow:
+        -1px -1px 0 #000,
+         1px -1px 0 #000,
+        -1px  1px 0 #000,
+         1px  1px 0 #000;
+      box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .btn-log {
+      background: linear-gradient(45deg, #3B5323, #6B8E23); /* Army */
+      color: #FFD700;
+    }
+
+    .btn-journal {
+      background: linear-gradient(45deg, #8B0000, #B22222); /* Marines */
+      color: #FFD700;
+    }
+
+    .btn-view {
+      background: linear-gradient(45deg, #0072CE, #003152); /* Coast Guard */
+      color: #FFFFFF;
+    }
+
+    .btn-logout {
+      background: linear-gradient(45deg, #000000, #2C2C2C); /* Space Force */
+      color:white;
     }
 
     .btn:hover {
-      background-color: #45a049;
+      transform: scale(1.05);
+      opacity: 0.95;
     }
+
   </style>
 </head>
-
 <body>
-  <div class="top-background">
-    <header>
-      <h1>Welcome Home, Hero!!</h1>
-      <p id="welcome-text">Stand Strong. Speak Freely. Find Peace.</p>
-    </header>
-    <main>
-      <button class="btn" onclick="location.href='/log-mood.html'">Log Mood</button>
-      <button class="btn" onclick="location.href='/write-journal.html'">Write Journal</button>
-      <button class="btn" onclick="location.href='/view-records.html'">View Journal</button>
-      <button class="btn" onclick="logout()">Logout</button>
-    </main>
-  
-    <script>
-      function logout() {
-        localStorage.clear();
-        window.location.href = "/MainPage.html";
-      }
-  
-      const username = localStorage.getItem("username");
-      if (username) {
-        document.getElementById("welcome-text").textContent = `Welcome, ${username}`;
-      }
-    </script>
-  </body>
-  </html>
+
+  <div class="background">
+    <div id="welcome-text"></div>
+
+    <div class="button-row">
+      <button class="btn btn-log" onclick="location.href='/log-mood.html'">Log Mood</button>
+      <button class="btn btn-journal" onclick="location.href='/write-journal.html'">Write Journal</button>
+      <button class="btn btn-view" onclick="location.href='/view-records.html'">View History</button>
+      <button class="btn btn-logout" onclick="logout()">Logout</button>
+    </div>
+  </div>
+
+  <script>
+    function logout() {
+      localStorage.clear();
+      window.location.href = "/MainPage.html";
+    }
+
+    const username = localStorage.getItem("username");
+    if (username) {
+      document.getElementById("welcome-text").textContent = `Welcome, ${username}!`;
+    }
+  </script>
+
+</body>
+</html>

@@ -7,8 +7,8 @@
         <link rel="stylesheet" href="style.css">
         <style>
             body {
-                font-family: Arial, sans-serif;
-                background: url(background.jpg) no-repeat center center fixed;
+                font-family: 'Times New Roman', Times, serif, sans-serif;
+                background: url(Flag.jpg) no-repeat center center fixed;
                 background-size: cover;
                 color: #4CAF50;
                 text-align: center;
@@ -49,21 +49,105 @@
                 color: #4CAF50;
                 margin-top: 20px;
             }
-     </style>
+            .back-button {
+                margin-top: 30;
+                display: inline-block;
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white;
+                text-decoration: none;
+                border-radius: 8px;
+                font-weight: bold;
+            }
+            .back-button:hover{
+                background-color: #4CAF50;
+                color:white;
+            }
+        </style>
 </head>
 <body>
-    <div class = "container">
-        <h1>Journal Entry</h1>
-        <p id = "greating"> </p>
 
-        <form id="journalForm">
-            <textarea id="journalEntry" placeholder="What's on your mind today?" required></textarea><br>
-            <button type="submit">Save Entry</button>
-        </form>
-        <p id="successMsg"></p>
-    </div>
-  
-     
+  <div class="container">
+    <h1>Journal Entry</h1>
+    <p id="greeting"></p>
+
+    <!-- Journal Entry Form -->
+    <form id="journalForm">
+      <textarea id="journalEntry" placeholder="What's on your mind today?" required></textarea><br />
+      <button type="submit">Save Entry</button>
+    </form>
+
+    <p id="successMsg"></p>
+
+    <!-- Navigation back to welcome page -->
+    <a href="/welcome.html" class="back-button">Back Home</a>
+  </div>
+
+  <script>
+
+    // Get and display the user's name from localStorage
+    const username = localStorage.getItem("username");
+    if (username) {
+      document.getElementById("greeting").textContent = `Hello, ${username}!`;
+    }
+
+    // Handle form submission
+
+    document.getElementById("journalForm").addEventListener("submit", async function (event) {
+      event.preventDefault(); // Stop page from refreshing
+
+      // Get the journal entry text and user ID from local storage
+      
+      const entry_text = document.getElementById("journalEntry").value.trim();
+      const user_id = localStorage.getItem("user_id");
+
+      // If not logged in, show error
+      
+      if (!user_id) {
+        alert("Please log in to save your journal entry.");
+        return;
+      }
+
+      // If entry is empty, show error
+      
+      if (!entry_text) {
+        alert("Please write something before saving.");
+        return;
+      }
+
+      try {
+        
+        // Send the journal entry to MongoDB.
+       
+        const response = await fetch("/api/journals", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({ user_id, entry_text })
+        });
+
+        const result = await response.json();
+
+        // If successful, show a success message
+       
+        if (response.ok) {
+          document.getElementById("successMsg").textContent = "Journal entry saved successfully!";
+          document.getElementById("journalEntry").value = ""; // Clear the textarea
+        } else {
+          document.getElementById("successMsg").textContent = "Error saving journal entry: " + result.message;
+        }
+
+      } catch (err) {
+      
+        // If there was a problem with the request
+       
+        document.getElementById("successMsg").textContent = "Cannot connect to server: " + err.message;
+        console.error(err);
+      }
+    });
+    </script>
 </body>
 </html>
+
             

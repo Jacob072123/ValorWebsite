@@ -1,114 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Valor - Mental Wellness for Veterans</title>
-        <link rel="stylesheet" href="style.css">
-        <style>
-            body{
-                font-family: Arial, sans-serif;
-                background: url(background.jpg) no-repeat center center fixed;
-                background-size: cover;
-                color: #4CAF50;
-                text-align: center;
-                padding: 0;
-                margin: 0;
-            }
-            .container{
-                background-color: rgba(0, 0, 0, 0.6);
-                padding: 40px;
-                margin: 60px auto;
-                width: 90%;
-                max-width: 700px;
-                border-radius: 12px;
-            }
-            select{
-                width: 60%;
-                padding:12px;
-                border-radius: 8px;
-                border: none;
-                font-size: 16px;
-                margin-top: 20px;
-            }
-            button {
-                margin-top: 20px;
-                padding: 12px 30px;
-                font-size: 18px;
-                border: none;
-                border-radius: 8px;
-                background-color: #4CAF50;
-                color: white;
-                cursor: pointer;
-            }
-            button:hover {
-                background-color:#256e45;
-            }
-            #successMsg {
-                color: #4CAF50;
-                margin-top: 20px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class = "container">
-            <h1>Log Mood</h1>
-            <p id = "greating"> </p>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Valor - Log Mood</title>
+  <link href="https://fonts.googleapis.com/css2?family=Rampart+One&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Times new roman', cursive;
+      background: url(Mood.jpg) no-repeat center center fixed;
+      background-size: 1525px 950px;
+      color: white;
+      text-align: center;
+      padding: 0;
+      margin: 0;
+    }
 
-            <form id="moodForm">
-                <label for = "mood">How are you feeling today?</label><br>
-                <select id="mood" required>
-                    <option value="" >-- Choose one --</option>
-                    <option value="Happy">Happy</option>
-                    <option value="Sad">Sad</option>
-                    <option value="Angry">Angry</option>
-                    <option value="Anxious">Anxious</option>
-                    <option value="Scared">Scared</option>
-                    <option value="Lonley">Lonley</option>
-                    <option value="Calm">Calm</option>
-                    <option value="Tired">Tired</option>
-                    <option value="Overwhelmed">Overwhelmed</option>
-                    <option value="Hopeful">Hopeful</option>
-                </select><br>
-                <button type="submit">Log Mood</button>
-            </form>
-            <p id="successMsg"></p>
-        </div>
-        <script>
-            const username = localStorage.getItem("username");
-            if (username) {
-              document.getElementById("greeting").textContent = `Hello, ${username}`;
-            }
-        
-            document.getElementById("moodForm").addEventListener("submit", async function (e) {
-              e.preventDefault();
-        
-              const mood = document.getElementById("mood").value;
-              const user_id = localStorage.getItem("user_id");
-        
-              if (!user_id) {
-                alert("You must be logged in.");
-                return;
-              }
-        
-              try {
-                const response = await fetch("/write-mood", {
-                  method: "POST",
-                  headers: { "Content-Type": "application/json" },
-                  body: JSON.stringify({ user_id, mood })
-                });
-        
-                const data = await response.json();
-        
-                if (response.ok) {
-                  document.getElementById("successMsg").textContent = "Your mood has been logged.";
-                  document.getElementById("mood").value = "";
-                } else {
-                  document.getElementById("successMsg").textContent = data.msg || "Error logging mood.";
-                }
-              } catch (err) {
-                document.getElementById("successMsg").textContent = "Could not connect to the server.";
-              }
-            });
-          </script>
-        </body>
+    .container {
+      background-color: rgba(0, 0, 0, 0.6);
+      padding: 40px;
+      margin: 60px auto;
+      width: 90%;
+      max-width: 700px;
+      border-radius: 12px;
+    }
+
+    .mood-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 30px;
+    }
+
+    .mood-btn {
+      padding: 20px 36px;
+      font-size: 26px;
+      border: none;
+      border-radius: 16px;
+      cursor: pointer;
+      font-weight: 900;
+      font-family: 'Rampart One', cursive;
+      color: white;
+      text-shadow:
+        -2px -2px 0 #000,
+         2px -2px 0 #000,
+        -2px  2px 0 #000,
+         2px  2px 0 #000;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .mood-btn:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 14px rgba(255, 255, 255, 0.9);
+    }
+
+    .Happy {
+      background: linear-gradient(45deg, #ffe259, #ffa751);
+    }
+    .Sad {
+      background: linear-gradient(45deg, #74ebd5, #5563de);
+    }
+    .Angry {
+      background: linear-gradient(45deg, #ff416c, #7d0000);
+    }
+    .Anxious {
+      background: linear-gradient(45deg, #9d50bb, #6e48aa);
+    }
+    .Scared {
+      background: linear-gradient(45deg, #434343, #000000);
+    }
+    .Lonely {
+      background: linear-gradient(45deg, #bdc3c7, #2c3e50);
+    }
+    .Calm {
+      background: linear-gradient(45deg, #56ab2f, #a8e063);
+    }
+    .Tired {
+      background: linear-gradient(45deg, #3e5151, #decba4);
+    }
+    .Overwhelmed {
+      background: linear-gradient(45deg, #f12711, #f5af19);
+    }
+    .Hopeful {
+      background: linear-gradient(45deg, #43e97b, #38f9d7);
+    }
+
+    .back-button {
+      margin-top: 30px;
+      display: inline-block;
+      padding: 16px 30px;
+      background-color: #4CAF50;
+      color: white;
+      text-decoration: none;
+      border-radius: 12px;
+      font-size: 20px;
+      font-weight: bold;
+      font-family: 'Times new roman', cursive;
+      transition: background-color 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #256e45;
+    }
+
+    #successMsg {
+      margin-top: 20px;
+      color: #4CAF50;
+      font-size: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Log Mood</h1>
+    <p id="greeting"></p>
+
+    <div class="mood-buttons">
+      <button class="mood-btn Happy" onclick="submitMood('Happy')">Happy</button>
+      <button class="mood-btn Sad" onclick="submitMood('Sad')">Sad</button>
+      <button class="mood-btn Angry" onclick="submitMood('Angry')">Angry</button>
+      <button class="mood-btn Anxious" onclick="submitMood('Anxious')">Anxious</button>
+      <button class="mood-btn Scared" onclick="submitMood('Scared')">Scared</button>
+      <button class="mood-btn Lonely" onclick="submitMood('Lonely')">Lonely</button>
+      <button class="mood-btn Calm" onclick="submitMood('Calm')">Calm</button>
+      <button class="mood-btn Tired" onclick="submitMood('Tired')">Tired</button>
+      <button class="mood-btn Overwhelmed" onclick="submitMood('Overwhelmed')">Overwhelmed</button>
+      <button class="mood-btn Hopeful" onclick="submitMood('Hopeful')">Hopeful</button>
+    </div>
+
+    <p id="successMsg"></p>
+    <a href="welcome.html" class="back-button">Back to Home</a>
+  </div>
+
+  <script>
+    const username = localStorage.getItem("username");
+    if (username) {
+      document.getElementById("greeting").textContent = `Hello, ${username}`;
+    }
+
+    async function submitMood(mood) {
+      const user_id = localStorage.getItem("user_id");
+
+      if (!user_id) {
+        alert("You must be logged in.");
+        return;
+      }
+
+      try {
+        const response = await fetch("/api/mood", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ user_id, mood })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          document.getElementById("successMsg").textContent = `Your mood "${mood}" has been logged.`;
+        } else {
+          document.getElementById("successMsg").textContent = data.msg || "Error logging mood.";
+        }
+      } catch (err) {
+        document.getElementById("successMsg").textContent = "Could not connect to the server.";
+      }
+    }
+  </script>
+</body>
+</html>
