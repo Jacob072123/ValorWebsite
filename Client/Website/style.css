@@ -37,7 +37,7 @@ header {
 
 /* Secondary Header */
 .secondary-header {
-    background: #002244; /* Dark blue background */
+    background: #002244; 
     color: #ffffff;
     padding: 20px;
     font-size: 22px;
@@ -72,7 +72,7 @@ header {
     transition: 0.3s;
 }
 
-/* Log In Button (Navy Blue - U.S. Navy) */
+/* Log In Button */
 .login-btn {
     background-color: #1E3A5F;
     color: #FFFFFF;
@@ -81,10 +81,10 @@ header {
 
 .login-btn:hover {
     background-color: #14304D;
-    border-color: #FFD700; /* U.S. Army Gold */
+    border-color: #FFD700; 
 }
 
-/* Join Our Community Button (Army Green - U.S. Army) */
+/* Join Our Community Button */
 .register-btn {
     background-color: #4B5320;
     color: #FFFFFF;
@@ -94,7 +94,7 @@ header {
 
 .register-btn:hover {
     background-color: #3D4218;
-    border-color: #FFD700; /* U.S. Army Gold */
+    border-color: #FFD700; 
 }
 
 /* Navigation Menu */
