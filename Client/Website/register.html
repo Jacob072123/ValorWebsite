@@ -1,70 +1,165 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Valor - Mental Wellness for Veterans</title>
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-      <header class="auth-header"></header>
-    
-      <main class="auth-form">
-        <form id="registerForm">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Valor - Register</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Header with background image */
+    .auth-header {
+      background: url('branch.jpeg') no-repeat center center / cover;
+      height: 87vh;
+      width: 95vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+
+    .join-heading {
+      font-size: 42px;
+      color: #FFD700;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.7);
+      font-family: 'Impact', sans-serif;
+    }
+
+    /* Form layout */
+    .auth-form {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      font-family: sans-serif;
+      background-color: rgba(255,255,255,0.9);
+      border-radius: 10px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .form-group input {
+      padding: 8px;
+    }
+
+    .auth-form button {
+      margin-top: 30px;
+      width: 100%;
+      padding: 12px;
+      font-size: 16px;
+      background-color: #4B5320;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .auth-form p {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .auth-form a {
+      color: #00308F;
+      text-decoration: none;
+    }
+
+    .auth-form a:hover {
+      text-decoration: underline;
+    }
+
+    @media (max-width: 600px) {
+      .form-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header with background image and title -->
+  <header class="auth-header">
+    <h1 class="join-heading">Join Our Community</h1>
+  </header>
+
+  <!-- Registration Form -->
+  <main class="auth-form">
+    <form id="registerForm">
+      <div class="form-grid">
+        <div class="form-group">
           <label for="fullname">Full Name:</label>
           <input type="text" id="fullname" required />
-    
+        </div>
+        <div class="form-group">
           <label for="username">Username:</label>
           <input type="text" id="username" required />
-    
+        </div>
+        <div class="form-group">
           <label for="email">Email:</label>
           <input type="email" id="email" required />
-    
+        </div>
+        <div class="form-group">
           <label for="password">Password:</label>
           <input type="password" id="password" required />
-    
-          <button type="submit">Register</button>
-        </form>
-    
-        <p><a href="/MainPage.html">← Back to Home</a></p>
-      </main>
-    
-      <script>
-        async function createUser(data) {
-          try {
-            const response = await fetch('/api/users', {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify(data)
-            });
-    
-            const result = await response.json();
-    
-            if (!response.ok) {
-              alert(result.msg || "Registration failed.");
-            } else {
-              localStorage.setItem("username", data.username);
-              alert("Account created! Redirecting...");
-              window.location.href = "/welcome.html";
-            }
-          } catch (err) {
-            alert("Could not connect to the server.");
-            console.error(err);
-          }
-        }
-    
-        document.getElementById("registerForm").addEventListener("submit", async function (e) {
-          e.preventDefault();
-    
-          const data = {
-            fullname: document.getElementById("fullname").value.trim(),
-            username: document.getElementById("username").value.trim(),
-            email: document.getElementById("email").value.trim(),
-            password: document.getElementById("password").value
-          };
-    
-          await createUser(data);
+        </div>
+      </div>
+
+      <button type="submit">Register</button>
+    </form>
+
+    <p><a href="/MainPage.html">← Back to Home</a></p>
+  </main>
+
+  <!-- Registration Script -->
+  <script>
+    async function createUser(data) {
+      try {
+        const response = await fetch('/api/users', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
         });
-      </script>
-    </body>
-    </html>
+
+        const result = await response.json();
+
+        if (!response.ok) {
+          alert(result.error || result.msg || "Registration failed.");
+        } else {
+          localStorage.setItem("user_id", result.id);
+          localStorage.setItem("username", result.username);
+          alert("Account created! Redirecting...");
+          window.location.href = "/welcome.html";
+        }
+      } catch (err) {
+        alert("Could not connect to the server.");
+        console.error(err);
+      }
+    }
+
+    document.getElementById("registerForm").addEventListener("submit", async function (e) {
+      e.preventDefault();
+
+      const data = {
+        fullname: document.getElementById("fullname").value.trim(),
+        username: document.getElementById("username").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        password: document.getElementById("password").value
+      };
+
+      await createUser(data);
+    });
+  </script>
+</body>
+</html>

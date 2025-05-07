@@ -5,10 +5,90 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Valor - Mental Wellness for Veterans</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    /* Header with fixed background image behavior */
+    .auth-header {
+      background: url('Honor.webp') no-repeat center center;
+      background-size: contain;
+      background-color: #D6C9A3; /* soft khaki/tan color */
+      height: auto;
+      min-height: 300px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 0;
+    }
+
+    /* Login Form styling */
+    .auth-form {
+      max-width: 400px;
+      margin: 40px auto;
+      padding: 20px;
+      font-family: sans-serif;
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .auth-form label {
+      display: block;
+      margin-top: 15px;
+      font-weight: bold;
+    }
+
+    .auth-form input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    .auth-form button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      background-color: #4B5320;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .auth-form button:hover {
+      background-color: #3e451a;
+    }
+
+    .auth-form p {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .auth-form a {
+      color: #00308F;
+      text-decoration: none;
+    }
+
+    .auth-form a:hover {
+      text-decoration: underline;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      background-color: #f7f5f0; /* soft base background */
+    }
+  </style>
 </head>
 <body>
+
+  <!-- Header with background image only -->
   <header class="auth-header"></header>
 
+  <!-- Login Form -->
   <main class="auth-form">
     <form id="loginForm">
       <label for="email">Email:</label>
@@ -23,6 +103,7 @@
     <p><a href="/MainPage.html">← Back to Home</a></p>
   </main>
 
+  <!-- Login Script -->
   <script>
     async function loginUser(data) {
       try {

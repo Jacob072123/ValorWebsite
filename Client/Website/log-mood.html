@@ -55,36 +55,16 @@
       box-shadow: 0 0 14px rgba(255, 255, 255, 0.9);
     }
 
-    .Happy {
-      background: linear-gradient(45deg, #ffe259, #ffa751);
-    }
-    .Sad {
-      background: linear-gradient(45deg, #74ebd5, #5563de);
-    }
-    .Angry {
-      background: linear-gradient(45deg, #ff416c, #7d0000);
-    }
-    .Anxious {
-      background: linear-gradient(45deg, #9d50bb, #6e48aa);
-    }
-    .Scared {
-      background: linear-gradient(45deg, #434343, #000000);
-    }
-    .Lonely {
-      background: linear-gradient(45deg, #bdc3c7, #2c3e50);
-    }
-    .Calm {
-      background: linear-gradient(45deg, #56ab2f, #a8e063);
-    }
-    .Tired {
-      background: linear-gradient(45deg, #3e5151, #decba4);
-    }
-    .Overwhelmed {
-      background: linear-gradient(45deg, #f12711, #f5af19);
-    }
-    .Hopeful {
-      background: linear-gradient(45deg, #43e97b, #38f9d7);
-    }
+    .Happy { background: linear-gradient(45deg, #ffe259, #ffa751); }
+    .Sad { background: linear-gradient(45deg, #74ebd5, #5563de); }
+    .Angry { background: linear-gradient(45deg, #ff416c, #7d0000); }
+    .Anxious { background: linear-gradient(45deg, #9d50bb, #6e48aa); }
+    .Scared { background: linear-gradient(45deg, #434343, #000000); }
+    .Lonely { background: linear-gradient(45deg, #bdc3c7, #2c3e50); }
+    .Calm { background: linear-gradient(45deg, #56ab2f, #a8e063); }
+    .Tired { background: linear-gradient(45deg, #3e5151, #decba4); }
+    .Overwhelmed { background: linear-gradient(45deg, #f12711, #f5af19); }
+    .Hopeful { background: linear-gradient(45deg, #43e97b, #38f9d7); }
 
     .back-button {
       margin-top: 30px;
@@ -139,6 +119,109 @@
     if (username) {
       document.getElementById("greeting").textContent = `Hello, ${username}`;
     }
+  
+    const bibleVerses = {
+      Sad: [
+        {
+          verse: "Psalm 34:18 (ESV) — “The Lord is near to the brokenhearted and saves the crushed in spirit.”",
+          note: "God doesn't wait for us to be strong. He meets us in the ache and holds us there."
+        },
+        {
+          verse: "Matthew 5:4 (ESV) — “Blessed are those who mourn, for they shall be comforted.”",
+          note: "Sadness isn't ignored by God; it’s honored with His personal comfort."
+        }
+      ],
+      Happy: [
+        {
+          verse: "Psalm 118:24 (ESV) — “This is the day that the Lord has made; let us rejoice and be glad in it.”",
+          note: "Every day is a gift, and joy is our response to God’s faithful presence."
+        },
+        {
+          verse: "Philippians 4:4 (ESV) — “Rejoice in the Lord always. I will say it again: Rejoice!”",
+          note: "Rejoicing is more than a feeling — it’s a choice rooted in faith."
+        }
+      ],
+      Angry: [
+        {
+          verse: "James 1:19–20 (ESV) — “Let every person be quick to hear, slow to speak, slow to anger.”",
+          note: "God calls us to listen and reflect before reacting in frustration."
+        },
+        {
+          verse: "Ephesians 4:26 (ESV) — “Be angry and do not sin; do not let the sun go down on your anger.”",
+          note: "Anger isn’t always sinful — but what we do with it matters deeply."
+        }
+      ],
+      Anxious: [
+        {
+          verse: "Philippians 4:6 (ESV) — “Do not be anxious about anything, but in everything by prayer... let your requests be made known to God.”",
+          note: "Prayer replaces panic when we lay our burdens before God."
+        },
+        {
+          verse: "1 Peter 5:7 (ESV) — “Casting all your anxieties on him, because he cares for you.”",
+          note: "God is both willing and able to carry what weighs you down."
+        }
+      ],
+      Scared: [
+        {
+          verse: "Isaiah 41:10 (ESV) — “Fear not, for I am with you... I will strengthen you, I will help you.”",
+          note: "You are not alone in fear — God is your strength."
+        },
+        {
+          verse: "Psalm 56:3 (ESV) — “When I am afraid, I put my trust in you.”",
+          note: "Fear is real, but trust is stronger when placed in God."
+        }
+      ],
+      Calm: [
+        {
+          verse: "Psalm 23:2 (ESV) — “He makes me lie down in green pastures. He leads me beside still waters.”",
+          note: "God provides spiritual rest in a restless world."
+        },
+        {
+          verse: "Matthew 11:28 (ESV) — “Come to me, all who labor and are heavy laden, and I will give you rest.”",
+          note: "True calm is found in Christ, not in control."
+        }
+      ],
+      Tired: [
+        {
+          verse: "Isaiah 40:29 (ESV) — “He gives power to the faint, and to him who has no might he increases strength.”",
+          note: "God doesn't scold tired people — He strengthens them."
+        },
+        {
+          verse: "Galatians 6:9 (ESV) — “Let us not grow weary of doing good...”",
+          note: "Your effort matters — keep going, God sees it."
+        }
+      ],
+      Overwhelmed: [
+        {
+          verse: "Psalm 61:2 (ESV) — “When my heart is faint, lead me to the rock that is higher than I.”",
+          note: "When life feels too much, God offers a place of shelter and strength."
+        },
+        {
+          verse: "2 Corinthians 12:9 (ESV) — “My grace is sufficient for you, for my power is made perfect in weakness.”",
+          note: "God meets us in our weakness with sustaining grace."
+        }
+      ],
+      Hopeful: [
+        {
+          verse: "Jeremiah 29:11 (ESV) — “For I know the plans I have for you... to give you a future and a hope.”",
+          note: "God’s plans are good — even if they unfold slowly."
+        },
+        {
+          verse: "Romans 15:13 (ESV) — “May the God of hope fill you with all joy and peace in believing...”",
+          note: "Hope isn’t self-generated — it’s a gift from trusting in Him."
+        }
+      ],
+      Lonely: [
+        {
+          verse: "Psalm 68:6 (ESV) — “God settles the solitary in a home...”",
+          note: "God sees and places the lonely in community and care."
+        },
+        {
+          verse: "Hebrews 13:5 (ESV) — “I will never leave you nor forsake you.”",
+          note: "Even when people disappear, God remains constant."
+        }
+      ]
+    };
 
     async function submitMood(mood) {
       const user_id = localStorage.getItem("user_id");
@@ -159,6 +242,12 @@
 
         if (response.ok) {
           document.getElementById("successMsg").textContent = `Your mood "${mood}" has been logged.`;
+
+          const verses = bibleVerses[mood];
+          if (verses && verses.length > 0) {
+            const random = verses[Math.floor(Math.random() * verses.length)];
+            alert(`${random.verse}\n\n${random.note}`);
+          }
         } else {
           document.getElementById("successMsg").textContent = data.msg || "Error logging mood.";
         }

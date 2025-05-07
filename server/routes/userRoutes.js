@@ -15,7 +15,13 @@ router.post("/register", async (req, res) => {
             password_hash: hashedPassword
         });
         await newUser.save();
-        res.status(201).json({ message: "User registered successfully!" });
+
+        // Return user ID and username so frontend can store them
+        res.status(201).json({
+            message: "User registered successfully!",
+            id: newUser._id,
+            username: newUser.username
+        });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }

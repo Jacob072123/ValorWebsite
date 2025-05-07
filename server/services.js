@@ -29,6 +29,7 @@ const jwt = require("jsonwebtoken");
     module.exports = function (app) {
 
     // Create user 
+    
     app.post("/api/users", async (req, res) => {
       const { fullname, username, email, password } = req.body;
     
@@ -43,10 +44,15 @@ const jwt = require("jsonwebtoken");
           password_hash: hashedPassword,
           created_at: new Date(),
         });
-    
-        res.status(201).json({ message: "User created", id: result.insertedId });
+   
+        res.status(201).json({
+          message: "User created",
+          id: result.insertedId,
+          username: username
+        });
+      
       } catch (error) {
-        console.error("Error creating user:", error); // This line is important
+        console.error("Error creating user:", error);
         res.status(500).json({ error: "Error creating user" });
       }
     });
